@@ -33,9 +33,14 @@ class Quiz extends Component {
   };
 
   onAnswerClickHandler = (answerId) => {
+    if (this.state.answerState) {//проверяет на повторное нажатие правильного ответа
+      const key = Object.keys(this.state.answerState)[0];
+      if (this.state.answerState[key] === "success") return;
+    }
+
     const question = this.state.quiz[this.state.activeQuestion];
     if (question.rightAnswerId === answerId) {
-      console.log('success');
+      console.log("success");
       this.setState({
         answerState: { [answerId]: "success" },
       });
@@ -52,7 +57,7 @@ class Quiz extends Component {
         window.clearTimeout(timeout);
       }, 1000);
     } else {
-      console.log('error');
+      console.log("error");
       this.setState({
         answerState: { [answerId]: "error" },
       });
